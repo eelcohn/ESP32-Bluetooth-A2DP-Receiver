@@ -20,7 +20,7 @@
 // WiFi settings
 #define HOSTNAME        "Bluetooth-Audio"
 #define SSID            "Skydive Hoogeveen Private"
-#define PASSWORD        "SkyD1vEH00Gev33n"
+#define PASSWORD        "xxxxxxxxxxxx"
 
 
 I2SClass i2s;
