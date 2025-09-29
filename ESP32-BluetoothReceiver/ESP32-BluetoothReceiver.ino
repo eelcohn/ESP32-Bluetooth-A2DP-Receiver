@@ -35,16 +35,18 @@ static void wifi_connection_state_changed(WiFiEvent_t event)
     switch (event) {
 
         case WIFI_EVENT_STA_CONNECTED:
+            wifi_connected = true;
             Serial.println("Connected to access point");
             break;
 
         case WIFI_EVENT_STA_DISCONNECTED:
             Serial.println("Disconnected from WiFi access point");
-
+            wifi_connected = false;
             break;
 
         case WIFI_EVENT_AP_STADISCONNECTED:
             Serial.println("WiFi client disconnected");
+            wifi_connected = false;
             break;
 
         default:
