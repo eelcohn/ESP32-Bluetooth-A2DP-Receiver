@@ -81,11 +81,12 @@ static void bt_connection_state_changed(esp_a2d_connection_state_t state, void *
 }
 
 
-
+// Arduino setup
 void setup() {
     Serial.begin(115200);
     Serial.println("Setup");
 
+    // Initialize WiFi
     Serial.println("Initializing WiFi...");
     wifi_connected = false;
 	WiFi.mode(WIFI_STA);
@@ -93,13 +94,13 @@ void setup() {
 	WiFi.begin(SSID, PASSWORD);
     WiFi.onEvent(wifi_connection_state_changed);
 
-    // Setup RGB LED
+    // Initialize RGB LED
     pinMode(RGBLED_RED, OUTPUT);
     pinMode(RGBLED_GREEN, OUTPUT);
     pinMode(RGBLED_BLUE, OUTPUT);
     setLEDColor(255, 0, 0);
 
-    // Setup I2C
+    // Initialize I2C
     pinMode(PCM5102_SCK, OUTPUT);
     digitalWrite(PCM5102_SCK, 0);
     i2s.setPins(PCM5102_BCK, PCM5102_LCK, PCM5102_DIN);
@@ -108,16 +109,16 @@ void setup() {
         while (1); // do nothing
     }
 
-    // Enable auto-reconnect
+    // Bluetooth A2DP: Enable auto-reconnect
     a2dp_sink.set_auto_reconnect(true);
 
-    // Make device discoverable
+    // Bluetooth A2DP: Make device discoverable
     a2dp_sink.set_discoverability(ESP_BT_GENERAL_DISCOVERABLE);
 
-    // Set connection callbacks
+    // Bluetooth A2DP: Set connection callbacks
     a2dp_sink.set_on_connection_state_changed(bt_connection_state_changed, nullptr);
 
-    // Start the Bluetootl A2DP sink
+    // Bluetooth A2DP: Start the sink
     a2dp_sink.start(BLUETOOTH_NAME);
 
     // Setup completed
@@ -125,9 +126,12 @@ void setup() {
     Serial.println("Setup completed");
 }
 
+// Arduino main loop
 void loop() {
+    delay(1);
 }
 
+// Set LED color
 void setLEDColor(int r, int g, int b) {
     analogWrite(RGBLED_RED, r);
     analogWrite(RGBLED_GREEN, g);
